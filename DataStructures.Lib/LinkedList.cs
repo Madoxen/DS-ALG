@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 
 namespace DataStructures.Lib
 {
@@ -25,6 +26,7 @@ namespace DataStructures.Lib
                 return;
             }
             last.next = node;
+            last = node;
         }
 
         public void Remove(int index)
@@ -34,13 +36,22 @@ namespace DataStructures.Lib
             for (int i = 0; i < index; i++)
             {
                 if (curr.next == null)
-                    throw new IndexOutOfRangeException();
+                    throw new IndexOutOfRangeException("Index " + i + " had next element equals to null when trying to go further.");
+
                 prev = curr;
                 curr = curr.next;
             }
-            if (prev == null)
+
+            if (prev == null) //zero element is being deleted
             {
                 head = curr.next;
+                return;
+            }
+
+            if (curr == last) //last element is being deleted
+            {
+                last = prev;
+                last.next = null;
                 return;
             }
 
