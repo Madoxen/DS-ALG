@@ -5,8 +5,8 @@ namespace DataStructures.Lib
     public class LinkedList<T>
     {
 
-        Node<T> head = null;
-        Node<T> last = null;
+        private Node<T> head = null;
+        private Node<T> last = null;
 
 
         public LinkedList()
@@ -38,7 +38,7 @@ namespace DataStructures.Lib
                 prev = curr;
                 curr = curr.next;
             }
-            if(prev == null)
+            if (prev == null)
             {
                 head = curr.next;
                 return;
@@ -89,11 +89,5 @@ namespace DataStructures.Lib
             public K val = default(K);
             public Node<K> next = null;
         }
-
-
-
     }
-
-
-
 }

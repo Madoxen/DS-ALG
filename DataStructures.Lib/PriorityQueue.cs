@@ -4,53 +4,53 @@ namespace DataStructures.Lib
 {
     public class PriorityQueue<T>
     {
-        int cap;
-        int count;
-        int priorityNum;
+        private int _cap;
+        private int _count;
+        private int _priorityNum;
 
-        Queue<T>[] queues;
+        private Queue<T>[] _queues;
 
 
 
         public PriorityQueue(int _cap, int _priorityNum)
         {
-            cap = _cap;
-            queues = new Queue<T>[_priorityNum];
+            this._cap = _cap;
+            _queues = new Queue<T>[_priorityNum];
             for (int i = 0; i < _priorityNum; i++)
             {
-                queues[i] = new Queue<T>(cap);
+                _queues[i] = new Queue<T>(this._cap);
             }
-            priorityNum = _priorityNum;
+            this._priorityNum = _priorityNum;
         }
 
 
         public void Enqueue(T val, int priority)
         {
-            if (count >= cap)
+            if (_count >= _cap)
                 throw new InvalidOperationException("Insufficient capacity.");
 
-            if(priority >= priorityNum)
+            if (priority >= _priorityNum)
                 throw new IndexOutOfRangeException("Given priority index was out of bounds.");
-            queues[priority].Enqueue(val);
-            count++;
+
+            _queues[priority].Enqueue(val);
+            _count++;
         }
 
         public T Dequeue()
         {
-            if (count <= 0)
+            if (_count <= 0)
                 throw new InvalidOperationException();
 
 
-            for (int i = priorityNum-1; i >= 0; i--)
+            for (int i = _priorityNum - 1; i >= 0; i--)
             {
                 try
                 {
-                    count--;
-                    T buff = queues[i].Dequeue();
+                    _count--;
+                    T buff = _queues[i].Dequeue();
                     return buff;
                 }
-                catch (InvalidOperationException e)
-                {}
+                catch (InvalidOperationException) { }
             }
             throw new Exception("All queues were empty, impossible situation (?) ");
         }

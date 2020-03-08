@@ -2,44 +2,43 @@ using System;
 
 namespace DataStructures.Lib
 {
-    //Represents Last in, first out collection
+    //Represents Last in, first out collection of given capacity
     public class Queue<T>
     {
-        int first;
-        int last;
-        int count = 0;
-        int cap = 0;
-        T[] values;
+        private int _first;
+        private int _last;
+        private int _count = 0;
+        private int _cap = 0;
+        private T[] _values;
 
 
         public Queue(int _cap)
         {
-            cap = _cap;
-            values = new T[cap];
+            this._cap = _cap;
+            _values = new T[this._cap];
         }
 
 
         public void Enqueue(T val)
         {
-            
-            if(count >= values.Length)
+            if (_count >= _values.Length)
                 throw new InvalidOperationException();
 
-            values[last] = val;
-            last = (last+1)%cap;
-            count++;
+            _values[_last] = val;
+            _last = (_last + 1) % _cap;
+            _count++;
         }
 
         public T Dequeue()
         {
-            if(count <= 0)
+            if (_count <= 0)
                 throw new InvalidOperationException();
 
-            T buff = values[first];
-            values[first] = default(T);
-            first = (first+1)%cap;
-            count--;
+            T buff = _values[_first];
+            _values[_first] = default(T);
+            _first = (_first + 1) % _cap;
+            _count--;
             return buff;
-        } 
+        }
     }
 }
