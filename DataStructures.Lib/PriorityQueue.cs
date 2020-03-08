@@ -14,6 +14,9 @@ namespace DataStructures.Lib
 
         public PriorityQueue(int _cap, int _priorityNum)
         {
+            if(_priorityNum <= 0)
+                throw new ArgumentException("Number of priorities cannot be smaller than 1");
+
             this._cap = _cap;
             _queues = new Queue<T>[_priorityNum];
             for (int i = 0; i < _priorityNum; i++)
@@ -41,18 +44,18 @@ namespace DataStructures.Lib
             if (_count <= 0)
                 throw new InvalidOperationException();
 
-
             for (int i = _priorityNum - 1; i >= 0; i--)
             {
                 try
                 {
-                    _count--;
                     T buff = _queues[i].Dequeue();
+                    _count--;
                     return buff;
                 }
                 catch (InvalidOperationException) { }
             }
-            throw new Exception("All queues were empty, impossible situation (?) ");
+
+            throw new Exception("All queues were empty, impossible situation since count must have been > 0 at the beginning ");
         }
     }
 }

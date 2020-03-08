@@ -2,7 +2,7 @@ using System;
 
 namespace DataStructures.Lib
 {
-    //Represents Last in, first out collection of given capacity
+    //Represents First in, first out collection of given capacity
     public class Queue<T>
     {
         private int _first;

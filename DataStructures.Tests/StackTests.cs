@@ -31,7 +31,6 @@ namespace DataStructures.Tests
             Assert.AreEqual(2, stack.Peek());
             Assert.AreEqual(2, stack.Peek());
             Assert.AreEqual(2, stack.Count);
-
         }
 
 

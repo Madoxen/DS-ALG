@@ -2,6 +2,7 @@ using System;
 
 namespace DataStructures.Lib
 {
+    //Last-in, first-out
     public class Stack<T>
     {
         private T[] _values;
@@ -10,7 +11,6 @@ namespace DataStructures.Lib
         {
             get { return _count; }
         }
-
 
         public Stack(int cap)
         {
