@@ -4,7 +4,6 @@ using System.Linq;
 
 namespace DataStructures.Lib
 {
-
     public class SentinelList<T>
     {
         private Node<T> head = null;
@@ -25,14 +24,18 @@ namespace DataStructures.Lib
             node.val = val;
 
             //first time handle
-            if (head == null)
+            if (head == sentinel)
             {
                 head = node;
                 sentinel.prev = head;
                 return;
             }
-            sentinel.prev = node;
-            node.next = sentinel;
+
+            //Insert element before sentinel node
+            node.prev = sentinel.prev;
+            sentinel.prev.next = node; //Connect previous element first
+            sentinel.prev = node; //Then senstinel node
+            node.next = sentinel; //Then next node for new node
         }
 
         public void Remove(int index)
@@ -40,11 +43,12 @@ namespace DataStructures.Lib
             Node<T> curr = head;
             for (int i = 0; i < index; i++)
             {
-                if (curr.next == null)
-                    throw new IndexOutOfRangeException("Index " + i + " had next element equals to null when trying to go further.");
+                if (curr.next == sentinel)
+                    throw new IndexOutOfRangeException("Index " + i + " had next element equals to sentinel node when trying to go further.");
 
                 curr = curr.next;
             }
+
 
             if (curr.prev != null)
                 curr.prev.next = curr.next;
@@ -55,8 +59,6 @@ namespace DataStructures.Lib
             if (curr == head)
                 head = curr.next;
 
-            if (curr == sentinel)
-                sentinel = curr.prev;
         }
 
 
