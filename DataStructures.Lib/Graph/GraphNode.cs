@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-
+using System.Linq;
 namespace DataStructures.Lib.Graphs
 {
     public class GraphNode<T>
@@ -35,7 +35,7 @@ namespace DataStructures.Lib.Graphs
             return n;
         }
 
-        public GraphNode<T>  Add(T val, int distance)
+        public GraphNode<T> Add(T val, int distance)
         {
             GraphNode<T> n = new GraphNode<T>(val);
             Add(new GraphNode<T>(val), distance);
@@ -62,6 +62,8 @@ namespace DataStructures.Lib.Graphs
         public void AddTwoWay(GraphNode<T> neighbour, int distance)
         {
             AddTwoWay(neighbour);
+            _distances.Add(neighbour, distance);
+            neighbour.Distances.Add(this, distance);
         }
 
         public GraphNode<T> AddTwoWay(T val)
@@ -106,13 +108,24 @@ namespace DataStructures.Lib.Graphs
 
         public List<GraphNode<T>> Flatten()
         {
-            List<GraphNode<T>> result = new List<GraphNode<T>>();
-            foreach (GraphNode<T> n in Neighbours)
+            System.Collections.Generic.Queue<GraphNode<T>> q = new System.Collections.Generic.Queue<GraphNode<T>>();
+            HashSet<GraphNode<T>> visited = new HashSet<GraphNode<T>>();
+            q.Enqueue(this);
+
+            while (q.Count != 0)
             {
-                result.Add(n);
-                result.AddRange(n.Flatten());
+                GraphNode<T> node = q.Dequeue();
+
+                if (!visited.Contains(node))
+                {
+                    visited.Add(node);
+                    foreach (GraphNode<T> n in node.Neighbours)
+                    {
+                        q.Enqueue(n);
+                    }
+                }
             }
-            return result;
+            return visited.ToList();
         }
 
 
