@@ -1,13 +1,9 @@
 ﻿using System;
 
-namespace biggest_num
+namespace Algorithms.Lib
 {
-    class Program
+    class intUtils
     {
-        static void Main(string[] args)
-        {
-            Console.WriteLine(max(new int[] { -2, 1, 2, 3, 5 }));
-        }
 
         static int max(int[] set)
         {

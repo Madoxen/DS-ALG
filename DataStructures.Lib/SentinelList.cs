@@ -61,7 +61,6 @@ namespace DataStructures.Lib
 
         }
 
-
         private T Get(int index)
         {
             Node<T> curr = head;

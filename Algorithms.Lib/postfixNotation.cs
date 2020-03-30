@@ -3,33 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 
 
-namespace postfixNotation
+namespace Algorithms.Lib
 {
-    class Program
+    class Notationconverter
     {
         static Dictionary<string, short> priorityMap = new Dictionary<string, short>();
-        static void Main(string[] args)
-        {
-            //Initialize priority map
-            priorityMap.Add("(", -1); //Using 
-            priorityMap.Add(")", 0);
-            priorityMap.Add("+", 0);
-            priorityMap.Add("-", 0);
-            priorityMap.Add("*", 1);
-            priorityMap.Add("/", 1);
-            priorityMap.Add("^", 2);
-
-
-            string sentence = "62 * 2 + 1 * ( ( 2 - 2 ) * 3 )";
-            Console.WriteLine(ConvertToReverseNotation(sentence));
-            Console.WriteLine(ConvertToNormalNotation(ConvertToReverseNotation(sentence)));
-        }
 
         static string ConvertToReverseNotation(string sentence)
         {
             string result = "";
             Stack<string> currentOperators = new Stack<string>();
-            string[] tokens = sentence.Split(" ");
+            string[] tokens = sentence.Split(' ');
             foreach (string t in tokens)
             {
 
@@ -84,7 +68,7 @@ namespace postfixNotation
         static string ConvertToNormalNotation(string sentence)
         {
             Stack<string> operands = new Stack<string>();
-            string[] tokens = sentence.Split(" ");
+            string[] tokens = sentence.Split(' ');
             for (int i = 0; i < tokens.Length - 1; i++)
             {
                 string curr = tokens[i];
