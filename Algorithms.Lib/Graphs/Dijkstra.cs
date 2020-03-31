@@ -19,6 +19,7 @@ namespace Algorithms.Lib.Graphs
                 distances.Add(v, int.MaxValue);
                 path.Add(v, null);
             }
+            
             distances[beginning] = 0;
             path[beginning] = null;
 

@@ -45,8 +45,6 @@ namespace Algorithms.Lib.Graphs
                         if (distances[j][k] > distances[j][i] + distances[i][k])
                         {
                             distances[j][k] = distances[j][i] + distances[i][k];
-                            if(next[i][k] == null)
-                                Console.WriteLine("frajer");
                             next[j][k] = next[j][i];
                         }
                     }
