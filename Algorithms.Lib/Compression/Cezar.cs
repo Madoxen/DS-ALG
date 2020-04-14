@@ -1,6 +1,6 @@
 namespace Algorithms.Lib.Encoding
 {
-    public class Cezar
+    public static class Cezar
     {
         public static string Encode(string input, int shift)
         {
