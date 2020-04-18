@@ -33,6 +33,7 @@ namespace Algorithms.Lib.Compression
             List<HuffmanNode> nodes = new List<HuffmanNode>();
             foreach (Word w in words)
                 nodes.Add(new HuffmanNode() { w = w, prob = w.probability });
+                
             //2. create dictionary tree
             for (int i = 0; i < nodes.Count; i++)
             {
