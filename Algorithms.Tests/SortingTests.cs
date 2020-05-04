@@ -6,6 +6,7 @@ using Algorithms.Lib.Sorting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics;
 
+[Ignore]
 [TestClass]
 public class SortingTests
 {
@@ -94,7 +95,6 @@ public class SortingTests
         Array.Copy(bigTestObjectArray, d, bigTestObjectArray.Length);
 
         sort.Sort<int>(a, (x, y) => x.CompareTo(y));
-        //
         Assert.IsTrue(CheckSort(a, (x, y) => x.CompareTo(y)));
 
         sort.Sort<int>(b, (x, y) => x.CompareTo(y));
@@ -139,10 +139,10 @@ public class SortingTests
         {
             if (comparison(arr[i], arr[i + 1]) > 0)
             {
-                Debug.WriteLine(arr[i].ToString() + "|||" + arr[i+1].ToString() );
+                Debug.WriteLine(arr[i].ToString() + "|||" + arr[i + 1].ToString());
                 return false;
             }
-                
+
         }
         return true;
     }

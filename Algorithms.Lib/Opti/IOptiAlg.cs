@@ -9,7 +9,9 @@ namespace Algorithms.Lib.Opti
         /// </summary>
         /// <param name="func">1D Function to find global minimum of </param>
         /// <returns>global minimum X coord</returns>
-        double Opti(Func<double, double> func);
+        double[] Opti(Func<double[], double> func);
+
+        
     }
 
 

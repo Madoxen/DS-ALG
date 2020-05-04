@@ -8,9 +8,12 @@ namespace Algorithms.Tests
 
         public void SetMinimumValue(int n)
         {
-            MinimumValue = (double)n * 39.2;
+            MinimumValue = (double)n * -39.2;
         }
 
+
+        public StyblinskiTang() { }
+        public StyblinskiTang(int n) { SetMinimumValue(n); }
 
         public double Func(double[] input)
         {

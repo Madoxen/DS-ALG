@@ -15,7 +15,7 @@ namespace Algorithms.Lib.Opti
             this.iterTreshold = iterTreshold;
         }
 
-        public double Opti(Func<double, double> func)
+        public double[] Opti(Func<double[], double> func)
         {
             /*
             Let s = s0
@@ -33,8 +33,9 @@ namespace Algorithms.Lib.Opti
             //the candidate generator procedure neighbour(), 
             //the acceptance probability function P(),
 
-            double currentState = rand.NextDouble();
+            double[] currentState = randomizeState(10);
             double T = maxTemp;
+            double alpha = 0.995;
             for (int i = 0; i < iterTreshold; i++)
             {
                 // Create adjacent state.
@@ -42,16 +43,16 @@ namespace Algorithms.Lib.Opti
                 // Check if adjacent state is new best.
                 // If adjacent state better, accept state with varying probability.
                 // Decrease temperature and increase iteration counter.
-                T = (i + 1) / iterTreshold;
-                double newState = rand.NextGaussian(currentState, T);
+
+                double[] newState = randomizeState(10);
                 //In our case energy is simply value of objective function
                 if (AcceptanceProb(func(currentState), func(newState), T) >= rand.NextDouble())
                     currentState = newState;
+
+                T = T * alpha;
             }
             return currentState;
         }
-
-        
 
 
         static double AcceptanceProb(double energy, double adjEnergy, double currTemp)
@@ -63,6 +64,17 @@ namespace Algorithms.Lib.Opti
             else
                 return Math.Exp((energy - adjEnergy) / currTemp);
         }
+
+        static double[] randomizeState(int length)
+        {
+            double[] result = new double[length];
+            for (int i = 0; i < length; i++)
+            {
+                result[i] = rand.NextDouble();
+            }
+            return result;
+        }
+
 
 
     }
