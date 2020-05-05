@@ -62,6 +62,17 @@ namespace Algorithms.Lib.Utils
             return ((total / tightness) * (max - min)) + min;
         }
 
+
+        public static double[] GenerateRandomArray(this Random rnd, int n, double from, double to)
+        {
+            double[] d = new double[n];
+            for (int i = 0; i < n; i++)
+            {
+                d[i] = rnd.NextDouble() * (to - from) + from;
+            }
+            return d;
+        }
+
         public static double GetExp(double peak)
         {
             // Get the exponent necessary for BiasPow(...) to result in the desired peak 
@@ -73,5 +84,8 @@ namespace Algorithms.Lib.Utils
         {
             return Math.Pow(input, exp);
         }
+
+
+
     }
 }
