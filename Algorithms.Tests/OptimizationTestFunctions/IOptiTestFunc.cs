@@ -5,6 +5,12 @@ namespace Algorithms.Tests
         double Func(double[] input);
 
         double MinimumValue {get;}
+        double[] SearchSpace {get;}
+
+
+
+
+       
     }
 
 }

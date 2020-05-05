@@ -12,6 +12,11 @@ namespace Algorithms.Tests
         }
 
 
+
+        private double[] searchSpace = new double[2] { -10.0, 10.0 };
+        public double[] SearchSpace { get { return searchSpace; } }
+
+
         public StyblinskiTang() { }
         public StyblinskiTang(int n) { SetMinimumValue(n); }
 
