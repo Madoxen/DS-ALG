@@ -83,7 +83,6 @@ namespace Algorithms.Lib.Opti
 
         }
 
-
         private double[] GenerateRandomArray(int n, double from, double to)
         {
             double[] d = new double[n];

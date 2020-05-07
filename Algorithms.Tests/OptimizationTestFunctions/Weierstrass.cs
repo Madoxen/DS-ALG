@@ -6,9 +6,8 @@ namespace Algorithms.Tests
     {
         public double MinimumValue { get { return 0; } }
 
-        private double[] searchSpace = new double[2] { -10.0, 10.0 };
+        private double[] searchSpace = new double[2] { -30.0, 30.0 };
         public double[] SearchSpace { get { return searchSpace; } }
-
 
         public double Func(double[] input)
         {

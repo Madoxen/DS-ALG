@@ -1,55 +1,107 @@
 using System;
 using System.Collections.Generic;
-
+using System.Linq;
 namespace Algorithms.Lib.Opti
 {
+    using Utils;
     public class Cuckoo : IOptiAlg
     {
 
         private static Random random = new Random();
-        public int nestCount;
-        public int inputDimension;
-        public int maxGeneration;
+        public int nestCount = 50;
+        public int dimension = 10;
+        public int iterCount = 100000;
+        public double[] searchSpace = { -10.0, 10.0 };
 
+
+
+        //Gaussian random walk iteration count
+        public int walkIterCount = 100;
+        public double walkStepSizeMod = 0.1;
+        public double populationSurvivalRate = 0.9;
 
         public Cuckoo() { }
-
-        public Cuckoo(int nestCount, int inputDimension, int maxGeneration)
-        {
-            this.nestCount = nestCount;
-            this.inputDimension = inputDimension;
-            this.maxGeneration = maxGeneration;
-        }
-
-
 
 
         public double[] Opti(Func<double[], double> func)
         {
             List<double[]> nests = new List<double[]>();
+
             //Generate nestCount nests
             for (int i = 0; i < nestCount; i++)
             {
-                nests.Add(GenerateRandomNest(inputDimension));
+                nests.Add(random.GenerateRandomArray(dimension, searchSpace[0], searchSpace[1]));
             }
+
+
             //Perform search
-            int generation = 0;
-            while(generation < maxGeneration)
+            for (int i = 0; i < iterCount; i++)
             {
+                //Choose random nest 
+                int cuckooNestIndex = random.Next(0, nests.Count);
+                //move cuckoo with random walk
+                double[] flightResult = randomWalk(nests[cuckooNestIndex], walkIterCount);
+                int cuckedNestIndex = ChooseCuckedNest(cuckooNestIndex, nests);
 
+                //Compare solutions
+                if (func(flightResult) <= func(nests[cuckedNestIndex]))
+                    //replace solution with better one
+                    nests[cuckedNestIndex] = flightResult;
+
+                //Order by fitness
+                nests = nests.OrderBy(x => func(x)).ToList();
+
+                //Kill weakest nests
+                KillPop(nests, populationSurvivalRate);
+                //Add new solutions to meet pop cap
+                for (int j = nests.Count; j < nestCount; j++)
+                {
+                    nests.Add(random.GenerateRandomArray(dimension, searchSpace[0], searchSpace[1]));
+                }
             }
-            return null;
+
+            //After cuckoo did it's job, now it's the time to choose a winner
+            nests = nests.OrderBy(x => func(x)).ToList();
+            return nests[0];
         }
 
-        private double[] GenerateRandomNest(int n)
+
+        private double[] randomWalk(double[] startingPoint, int iterCount)
         {
-            double[] d = new double[n];
-            for (int i = 0; i < n; i++)
+            double[] result = new double[startingPoint.Length];
+            startingPoint.CopyTo(result, 0);
+            for (int i = 0; i < iterCount; i++)
             {
-                d[i] = random.NextDouble();
+                for (int j = 0; j < result.Length; j++)
+                {
+                    result[j] += random.RandomNormal(-1.0, 1.0, 100) * walkStepSizeMod;
+                }
             }
-            return d;
+            return result;
         }
+
+
+        private int ChooseCuckedNest(int cuckooNestIndex, List<double[]> nests)
+        {
+            int cuckedNestIndex = cuckooNestIndex;
+            while (cuckedNestIndex == cuckooNestIndex) //i know this is bad, but in bigger collections it's simply better to just reroll then construct whole new list (which would be O(N))
+            {
+                cuckedNestIndex = random.Next(0, nests.Count);
+            }
+            return cuckedNestIndex;
+        }
+
+
+        /// <summary>
+        /// Only the strongest will survive!
+        /// </summary>
+        /// <param name="population">ORDERED by fitness collection of critters</param>
+        private void KillPop(List<double[]> population, double populationSurvivalRate)
+        {
+            int index = (int)((double)population.Count * populationSurvivalRate);
+            population.RemoveRange(index, population.Count - index);
+        }
+
     }
 
 }
