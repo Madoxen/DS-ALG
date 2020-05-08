@@ -40,7 +40,7 @@ namespace Algorithms.Lib.Opti
                 double[] newState = rand.GenerateRandomArray(dimensions, -1.0, 1.0);
                 for(int j = 0; j < dimensions; j++)
                 {
-                    newState[j] += currentState[j];
+                    newState[j] += currentState[j] * (T/maxTemp);
                 }
                 //In our case energy is simply value of objective function
                 if (AcceptanceProb(func(currentState), func(newState), T) >= rand.NextDouble())

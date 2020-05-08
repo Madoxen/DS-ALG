@@ -62,7 +62,7 @@ namespace Algorithms.Lib.Opti
                     //Roll for mutation!
                     double roll = rnd.NextDouble();
                     if (roll < mutationChance)
-                        Mutate(c);
+                        Mutate(c); //crit!
                 }
             }
 

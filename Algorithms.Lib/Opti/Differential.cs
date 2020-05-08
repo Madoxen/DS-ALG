@@ -36,7 +36,7 @@ namespace Algorithms.Lib.Opti
                 {
                     //Pick three distinct agents, that are distinct from "agent" as well
                     double[][] referenceAgents = PickReferenceAgents(pop, j);
-                    int dimensionIndex = rnd.Next(0, dimension);
+                //    int dimensionIndex = rnd.Next(0, dimension);
                     double[] potential = new double[dimension];
 
                     //Compute potential new agent's position

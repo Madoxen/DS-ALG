@@ -50,7 +50,6 @@ namespace Algorithms.Lib.Opti
 
                 //Order by fitness
                 nests = nests.OrderBy(x => func(x)).ToList();
-
                 //Kill weakest nests
                 KillPop(nests, populationSurvivalRate);
                 //Add new solutions to meet pop cap

@@ -10,11 +10,19 @@ namespace Algorithms.Tests
         public void Test()
         {
             Swarm g = new Swarm();
-            IOptiTestFunc f = new Weierstrass();            
+            IOptiTestFunc f = new Weierstrass();
             g.dimension = 10;
             g.searchSpace = f.SearchSpace;
             double[] res = g.Opti(f.Func);
             double val = f.Func(res);
+            Assert.AreEqual(f.MinimumValue, val, 5);
+
+            g = new Swarm();
+            f = new HyperEllipsoid();
+            g.dimension = 10;
+            g.searchSpace = f.SearchSpace;
+            res = g.Opti(f.Func);
+            val = f.Func(res);
             Assert.AreEqual(f.MinimumValue, val, 5);
         }
 

@@ -18,6 +18,17 @@ namespace Algorithms.Tests
             double val = f.Func(res);
 
             Assert.AreEqual(f.MinimumValue, val, 5);
+
+
+            c = new Cuckoo();
+            f = new HyperEllipsoid();
+
+            c.dimension = 10;
+            c.searchSpace = f.SearchSpace;
+            res = c.Opti(f.Func);
+            val = f.Func(res);
+
+            Assert.AreEqual(f.MinimumValue, val, 5);
         }
 
     }

@@ -17,6 +17,15 @@ namespace Algorithms.Tests
             double val = f.Func(res);
 
             Assert.AreEqual(f.MinimumValue, val, 5);
+
+            b = new Bats();
+            f = new HyperEllipsoid();
+            b.dimension = 10;
+            b.searchSpace = f.SearchSpace;
+            res = b.Opti(f.Func);
+            val = f.Func(res);
+
+            Assert.AreEqual(f.MinimumValue, val, 5);
         }
 
     }

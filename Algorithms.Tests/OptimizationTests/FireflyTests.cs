@@ -16,6 +16,14 @@ namespace Algorithms.Tests
             double[] res = fire.Opti(f.Func);
             double val = f.Func(res);
             Assert.AreEqual(f.MinimumValue, val, 5);
+
+            fire = new Firefly();
+            f = new HyperEllipsoid();
+            fire.dimension = 10;
+            fire.searchSpace = f.SearchSpace;
+            res = fire.Opti(f.Func);
+            val = f.Func(res);
+            Assert.AreEqual(f.MinimumValue, val, 5);
         }
 
     }
