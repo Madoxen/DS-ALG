@@ -29,24 +29,14 @@ namespace Algorithms.Lib.Opti
                     s ← snew
             Output: the final state s
             */
-            //In order to apply the simulated annealing method to
-            // a specific problem, one must specify the following parameters: 
-            //the state space, 
-            //the energy (goal) function E(), 
-            //the candidate generator procedure neighbour(), 
-            //the acceptance probability function P(),
 
             double[] currentState = rand.GenerateRandomArray(dimensions, searchSpace[0], searchSpace[1]);
             double T = maxTemp;
             double alpha = 0.995;
             for (int i = 0; i < iterTreshold || Math.Abs(func(currentState) - minVal) <= 0.001; i++)
             {
-                // Create adjacent state.
-                // Compute energy of adjacent state.
-                // Check if adjacent state is new best.
-                // If adjacent state better, accept state with varying probability.
-                // Decrease temperature and increase iteration counter.
 
+               // Create adjacent state.
                 double[] newState = rand.GenerateRandomArray(dimensions, -1.0, 1.0);
                 for(int j = 0; j < dimensions; j++)
                 {
