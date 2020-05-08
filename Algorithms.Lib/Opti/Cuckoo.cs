@@ -10,7 +10,7 @@ namespace Algorithms.Lib.Opti
         private static Random random = new Random();
         public int nestCount = 50;
         public int dimension = 10;
-        public int iterCount = 100000;
+        public int iterCount = 20000;
         public double[] searchSpace = { -10.0, 10.0 };
 
 

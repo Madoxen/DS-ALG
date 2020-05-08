@@ -15,6 +15,8 @@ namespace Algorithms.Tests
             b.searchSpace = f.SearchSpace;
             double[] res = b.Opti(f.Func);
             double val = f.Func(res);
+
+            Assert.AreEqual(f.MinimumValue, val, 5);
         }
 
     }

@@ -17,7 +17,7 @@ namespace Algorithms.Lib.Opti
         public double[] initialFrequency = { 0, 1.0 };
 
 
-        public int iterCount = 100000;
+        public int iterCount = 50000;
         public int populationCount = 50;
         public int flightIters = 40;
         public double loudnessDecreaseFactor = 0.9;

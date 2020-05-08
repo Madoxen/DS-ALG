@@ -10,10 +10,14 @@ namespace Algorithms.Tests
         [TestMethod]
         public void Test()
         {
-            Anneling a = new Anneling(10000, 10);
+            Anneling a = new Anneling(500000, 10000);
+            a.dimensions = 10;
             IOptiTestFunc f = new HyperEllipsoid();
+            a.searchSpace = f.SearchSpace;
             double[] res = a.Opti(f.Func);
             double val = f.Func(res);
+            
+            Assert.AreEqual(f.MinimumValue, val, 5);
         }
 
     }

@@ -11,8 +11,11 @@ namespace Algorithms.Tests
         {
             Genetic g = new Genetic();
             IOptiTestFunc f = new Weierstrass();
+            g.dimension = 10;
+            g.searchSpace = f.SearchSpace;
             double[] res = g.Opti(f.Func);
             double val = f.Func(res);
+            Assert.AreEqual(f.MinimumValue, val, 5);
         }
 
     }

@@ -5,8 +5,10 @@ namespace Algorithms.Lib.Opti
 {
     public class Anneling : IOptiAlg
     {
-        private int iterTreshold;
-        private double maxTemp;
+        public int iterTreshold;
+        public double maxTemp;
+        public int dimensions;
+        public double[] searchSpace;
         static Random rand = new Random();
 
         public Anneling(int iterTreshold, double maxTemp)
@@ -33,7 +35,7 @@ namespace Algorithms.Lib.Opti
             //the candidate generator procedure neighbour(), 
             //the acceptance probability function P(),
 
-            double[] currentState = randomizeState(10);
+            double[] currentState = rand.GenerateRandomArray(dimensions, searchSpace[0], searchSpace[1]);
             double T = maxTemp;
             double alpha = 0.995;
             for (int i = 0; i < iterTreshold; i++)
@@ -44,7 +46,11 @@ namespace Algorithms.Lib.Opti
                 // If adjacent state better, accept state with varying probability.
                 // Decrease temperature and increase iteration counter.
 
-                double[] newState = randomizeState(10);
+                double[] newState = rand.GenerateRandomArray(dimensions, -1.0, 1.0);
+                for(int j = 0; j < dimensions; j++)
+                {
+                    newState[j] += currentState[j];
+                }
                 //In our case energy is simply value of objective function
                 if (AcceptanceProb(func(currentState), func(newState), T) >= rand.NextDouble())
                     currentState = newState;
@@ -64,20 +70,5 @@ namespace Algorithms.Lib.Opti
             else
                 return Math.Exp((energy - adjEnergy) / currTemp);
         }
-
-        static double[] randomizeState(int length)
-        {
-            double[] result = new double[length];
-            for (int i = 0; i < length; i++)
-            {
-                result[i] = rand.NextDouble();
-            }
-            return result;
-        }
-
-
-
     }
-
-
 }
