@@ -3,7 +3,7 @@ using Algorithms.Lib.Utils;
 
 namespace Algorithms.Lib.Opti
 {
-    public class Anneling : IOptiAlg
+    public class Annealing : IOptiAlg
     {
         public int iterTreshold;
         public double maxTemp;
@@ -12,7 +12,7 @@ namespace Algorithms.Lib.Opti
         public double[] searchSpace;
         static Random rand = new Random();
 
-        public Anneling(int iterTreshold, double maxTemp)
+        public Annealing(int iterTreshold, double maxTemp)
         {
             this.maxTemp = maxTemp;
             this.iterTreshold = iterTreshold;
@@ -30,17 +30,21 @@ namespace Algorithms.Lib.Opti
             Output: the final state s
             */
 
+            
             double[] currentState = rand.GenerateRandomArray(dimensions, searchSpace[0], searchSpace[1]);
+            double[] bestState = currentState;
             double T = maxTemp;
-            double alpha = 0.995;
-            for (int i = 0; i < iterTreshold || Math.Abs(func(currentState) - minVal) <= 0.001; i++)
+            double alpha = 0.999;
+            for (int i = 0; i < iterTreshold; i++)
             {
 
                // Create adjacent state.
-                double[] newState = rand.GenerateRandomArray(dimensions, -1.0, 1.0);
+              //  double[] newStateDelta = rand.GenerateRandomArray(dimensions, -1.0, 1.0);
+                double[] newState = new double[dimensions];
+                currentState.CopyTo(newState,0);
                 for(int j = 0; j < dimensions; j++)
                 {
-                    newState[j] += currentState[j] * (T/maxTemp);
+                    newState[j] += rand.RandomNormal(-1.0, 1.0, 1) * T;
                 }
                 //In our case energy is simply value of objective function
                 if (AcceptanceProb(func(currentState), func(newState), T) >= rand.NextDouble())
@@ -59,7 +63,9 @@ namespace Algorithms.Lib.Opti
             if (adjEnergy < energy)
                 return 1.0;
             else
-                return Math.Exp((energy - adjEnergy) / currTemp);
+                return Math.Exp(-(adjEnergy - energy) / currTemp);
         }
+
+        
     }
 }

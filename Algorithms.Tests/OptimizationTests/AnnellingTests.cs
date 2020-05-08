@@ -5,12 +5,12 @@ namespace Algorithms.Tests
     using Lib.Opti;
 
     [TestClass]
-    public class AnnellingTests
+    public class AnneallingTests
     {
         [TestMethod]
         public void Test()
         {
-            Anneling a = new Anneling(500000, 10000);
+            Annealing a = new Annealing(10000, 1000);
             a.dimensions = 10;
             IOptiTestFunc f = new HyperEllipsoid();
             a.searchSpace = f.SearchSpace;
@@ -20,7 +20,7 @@ namespace Algorithms.Tests
 
             Assert.AreEqual(f.MinimumValue, val, 5);
 
-            a = new Anneling(500000, 10000);
+            a = new Annealing(10000, 1000);
             a.dimensions = 10;
             f = new Weierstrass();
             a.searchSpace = f.SearchSpace;
