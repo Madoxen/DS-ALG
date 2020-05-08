@@ -8,6 +8,7 @@ namespace Algorithms.Lib.Opti
         public int iterTreshold;
         public double maxTemp;
         public int dimensions;
+        public double minVal;
         public double[] searchSpace;
         static Random rand = new Random();
 
@@ -38,7 +39,7 @@ namespace Algorithms.Lib.Opti
             double[] currentState = rand.GenerateRandomArray(dimensions, searchSpace[0], searchSpace[1]);
             double T = maxTemp;
             double alpha = 0.995;
-            for (int i = 0; i < iterTreshold; i++)
+            for (int i = 0; i < iterTreshold || Math.Abs(func(currentState) - minVal) <= 0.001; i++)
             {
                 // Create adjacent state.
                 // Compute energy of adjacent state.
