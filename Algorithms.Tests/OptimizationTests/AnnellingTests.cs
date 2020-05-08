@@ -10,7 +10,7 @@ namespace Algorithms.Tests
         [TestMethod]
         public void Test()
         {
-            Anneling a = new Anneling(1000000, 10);
+            Anneling a = new Anneling(10000, 10);
             IOptiTestFunc f = new HyperEllipsoid();
             double[] res = a.Opti(f.Func);
             double val = f.Func(res);
