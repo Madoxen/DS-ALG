@@ -68,12 +68,6 @@ namespace Algorithms.Lib.Opti
                                  * dist;
                                 candidatePosition[dim] += ((rnd.NextDouble() - 0.5) * randomnessFactor);
 
-                                //Keep bounds intact
-                                if (population[i].position[dim] < searchSpace[0])
-                                    population[i].position[dim] = rnd.RandomNormal(searchSpace[0], searchSpace[1], 10);
-                                if (population[i].position[dim] > searchSpace[1])
-                                    population[i].position[dim] = rnd.RandomNormal(searchSpace[0], searchSpace[1], 10);
-
                             }
 
 
