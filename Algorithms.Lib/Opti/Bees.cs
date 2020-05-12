@@ -71,18 +71,19 @@ namespace Algorithms.Lib.Opti
                     if (hive[index].currentFitness >= hive[index].lastFitness)
                     {
                         hive[index].timesImprovementFailed++;
-                        //SCOUT
-                        if (hive[index].timesImprovementFailed >= foodSourceCycleLimit)
-                        {
-                            //this foodsource did not improve in last foodSourceCycliLimit
-                            //Search for better one
-                            hive[index].position = rnd.GenerateRandomArray(dimension, searchSpace[0], searchSpace[1]);
-                        }
-                        else
-                        {
-                            hive[index].lastFitness = hive[index].currentFitness; //update last fitness
-                        }
                     }
+                    //SCOUT
+                    if (hive[index].timesImprovementFailed >= foodSourceCycleLimit)
+                    {
+                        //this foodsource did not improve in last foodSourceCycliLimit
+                        //Search for better one
+                        hive[index].position = rnd.GenerateRandomArray(dimension, searchSpace[0], searchSpace[1]);
+                    }
+                    else
+                    {
+                        hive[index].lastFitness = hive[index].currentFitness; //update last fitness
+                    }
+
 
 
                 }
