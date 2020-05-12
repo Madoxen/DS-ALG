@@ -21,7 +21,7 @@ namespace Algorithms.Tests
 
 
             c = new Cuckoo();
-            f = new HyperEllipsoid();
+            f = new SumSquares();
 
             c.dimension = 10;
             c.searchSpace = f.SearchSpace;

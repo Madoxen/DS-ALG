@@ -90,17 +90,16 @@ namespace Algorithms.Lib.Opti
                     if (func(b.position) < func(best))
                     {
                         b.position.CopyTo(best, 0);
-
                     }
                 }
 
-
                 //Rank the bats and find the current best bat
-                //population.ForEach(x => x.lastFitness = func(x.position));
-                //best = population.Aggregate((x, y) => x.lastFitness < y.lastFitness ? x : y);
+               
             }
 
             //Return best bat solution
+            population.ForEach(x => x.lastFitness = func(x.position));
+            best = population.Aggregate((x, y) => x.lastFitness < y.lastFitness ? x : y).position;
             return best;
         }
 

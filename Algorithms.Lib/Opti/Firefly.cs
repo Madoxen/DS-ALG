@@ -7,10 +7,9 @@ namespace Algorithms.Lib.Opti
     using Utils;
     public class Firefly : IOptiAlg
     {
-
         private static Random rnd = new Random();
-        public int generations = 20000;
-        public int populationCount = 100;
+        public int generations = 1000;
+        public int populationCount = 40;
         public double absorptionCoefficient = 1;
         public int dimension = 10;
         public double[] searchSpace = { -10.0, 10.0 };
@@ -23,11 +22,28 @@ namespace Algorithms.Lib.Opti
             List<Fly> population = new List<Fly>();
             for (int i = 0; i < populationCount; i++)
             {
-                population.Add(new Fly(rnd.GenerateRandomArray(dimension, searchSpace[0], searchSpace[1])));
+                Fly f = new Fly(rnd.GenerateRandomArray(dimension, searchSpace[0], searchSpace[1]));
+                population.Add(f);
             }
 
             double[] bestPosition = rnd.GenerateRandomArray(dimension, searchSpace[0], searchSpace[1]);
             double best = func(bestPosition);
+
+
+            /*initialize n fireflies to random positions
+                loop maxEpochs times
+                for i := 0 to n-1
+                    for j := 0 to n-1
+                    if intensity(i) < intensity(j)
+                        compute attractiveness
+                        move firefly(i) toward firefly(j)
+                        update firefly(i) intensity
+                    end for
+                    end for
+                sort fireflies
+                end loop
+                return best position found
+            */
 
 
             for (int gen = 0; gen < generations; gen++)
@@ -36,31 +52,44 @@ namespace Algorithms.Lib.Opti
                 {
                     for (int j = 0; j < populationCount; j++)
                     {
+                        if (i == j)
+                            continue;
+
                         //If j is better then i
                         if (func(population[j].position) < func(population[i].position))
                         {
+                            double dist = CalculateAttractiveness(population[i], population[j]);
+                            double[] candidatePosition = new double[dimension];
+                            population[i].position.CopyTo(candidatePosition, 0);
                             //Move i closer to j
                             for (int dim = 0; dim < dimension; dim++)
                             {
-                                population[i].position[dim] += (population[j].position[dim] - population[i].position[dim])
-                                 * CalculateAttractiveness(population[j], population[i]);
-                                population[i].position[dim] += ((rnd.NextDouble() - 0.5) * randomnessFactor);
+                                candidatePosition[dim] += (population[j].position[dim] - population[i].position[dim])
+                                 * dist;
+                                candidatePosition[dim] += ((rnd.NextDouble() - 0.5) * randomnessFactor);
 
                                 //Keep bounds intact
                                 if (population[i].position[dim] < searchSpace[0])
                                     population[i].position[dim] = rnd.RandomNormal(searchSpace[0], searchSpace[1], 10);
                                 if (population[i].position[dim] > searchSpace[1])
                                     population[i].position[dim] = rnd.RandomNormal(searchSpace[0], searchSpace[1], 10);
+
                             }
+
+
+                            //Check if new pos is better then the old one
+                            if (func(candidatePosition) < func(population[i].position))
+                                population[i].position = candidatePosition;
+
                         }
                     }
-                }
 
-                double[] pos = population.Aggregate((x, y) => func(x.position) < func(y.position) ? x : y).position;
-                if (func(pos) < best)
-                {
-                    bestPosition = pos;
-                    best = func(bestPosition);
+                    double[] pos = population.Aggregate((x, y) => func(x.position) < func(y.position) ? x : y).position;
+                    if (func(pos) < best)
+                    {
+                        bestPosition = pos;
+                        best = func(bestPosition);
+                    }
                 }
             }
             return bestPosition;
@@ -84,22 +113,18 @@ namespace Algorithms.Lib.Opti
         private double CalculateAttractiveness(Fly from, Fly to)
         {
             double dist = CalculateDistance(from.position, to.position);
-            return from.attractiveness * Math.Exp(-absorptionCoefficient * dist * dist);
+            return 1.0 * Math.Exp(-absorptionCoefficient * dist * dist);
         }
 
         private class Fly
         {
-            public double attractiveness; //Also called Beta-0
             public double[] position;
-
+            public double[] lastPosition;
             public Fly(double[] position)
             {
                 this.position = position;
-                attractiveness = rnd.NextDouble();
+                this.lastPosition = position;
             }
         }
-
     }
-
-
 }

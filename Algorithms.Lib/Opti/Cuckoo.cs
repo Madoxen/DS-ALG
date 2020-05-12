@@ -10,13 +10,13 @@ namespace Algorithms.Lib.Opti
         private static Random random = new Random();
         public int nestCount = 50;
         public int dimension = 10;
-        public int iterCount = 20000;
+        public int iterCount = 50000;
         public double[] searchSpace = { -10.0, 10.0 };
 
 
 
         //Gaussian random walk iteration count
-        public int walkIterCount = 100;
+        public int walkIterCount = 10;
         public double walkStepSizeMod = 0.1;
         public double populationSurvivalRate = 0.9;
 
