@@ -18,7 +18,7 @@ namespace Algorithms.Tests
             Assert.AreEqual(f.MinimumValue, val, 5);
 
             g = new Swarm();
-            f = new HyperEllipsoid();
+            f = new SumSquares();
             g.dimension = 10;
             g.searchSpace = f.SearchSpace;
             res = g.Opti(f.Func);

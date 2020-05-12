@@ -12,7 +12,7 @@ namespace Algorithms.Tests
         {
             Annealing a = new Annealing(10000, 1000);
             a.dimensions = 10;
-            IOptiTestFunc f = new HyperEllipsoid();
+            IOptiTestFunc f = new SumSquares();
             a.searchSpace = f.SearchSpace;
             a.minVal = f.MinimumValue;
             double[] res = a.Opti(f.Func);

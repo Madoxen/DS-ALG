@@ -83,9 +83,6 @@ namespace Algorithms.Lib.Opti
                     {
                         hive[index].lastFitness = hive[index].currentFitness; //update last fitness
                     }
-
-
-
                 }
 
                 double[] bestCandidate = hive.Aggregate((x, y) => x.currentFitness < y.currentFitness ? x : y).position;
@@ -112,8 +109,6 @@ namespace Algorithms.Lib.Opti
             {
                 this.position = position;
             }
-
-
         }
 
         private int ChooseBeeOtherThenIndex(int beeIndex, List<Bee> hive)

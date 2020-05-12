@@ -16,10 +16,10 @@ namespace Algorithms.Tests
             double[] res = b.Opti(f.Func);
             double val = f.Func(res);
 
-            Assert.AreEqual(f.MinimumValue, val, 5);
+           Assert.AreEqual(f.MinimumValue, val, 5);
 
             b = new Bats();
-            f = new HyperEllipsoid();
+            f = new SumSquares();
             b.dimension = 10;
             b.searchSpace = f.SearchSpace;
             res = b.Opti(f.Func);

@@ -11,7 +11,7 @@ namespace Algorithms.Tests
         public void Test()
         {
             Differential d = new Differential();
-            IOptiTestFunc f = new HyperEllipsoid();
+            IOptiTestFunc f = new SumSquares();
             d.dimension = 10;
             d.searchSpace = f.SearchSpace;
             double[] res = d.Opti(f.Func);
