@@ -19,16 +19,6 @@ namespace Algorithms.Lib.Opti
 
         public double[] Opti(Func<double[], double> func)
         {
-            List<Fly> population = new List<Fly>();
-            for (int i = 0; i < populationCount; i++)
-            {
-                Fly f = new Fly(rnd.GenerateRandomArray(dimension, searchSpace[0], searchSpace[1]));
-                population.Add(f);
-            }
-
-            double[] bestPosition = rnd.GenerateRandomArray(dimension, searchSpace[0], searchSpace[1]);
-            double best = func(bestPosition);
-
 
             /*initialize n fireflies to random positions
                 loop maxEpochs times
@@ -44,6 +34,19 @@ namespace Algorithms.Lib.Opti
                 end loop
                 return best position found
             */
+
+            List<Fly> population = new List<Fly>();
+            for (int i = 0; i < populationCount; i++)
+            {
+                Fly f = new Fly(rnd.GenerateRandomArray(dimension, searchSpace[0], searchSpace[1]));
+                population.Add(f);
+            }
+
+            double[] bestPosition = rnd.GenerateRandomArray(dimension, searchSpace[0], searchSpace[1]);
+            double best = func(bestPosition);
+
+
+
 
 
             for (int gen = 0; gen < generations; gen++)
@@ -69,8 +72,7 @@ namespace Algorithms.Lib.Opti
                                 candidatePosition[dim] += ((rnd.NextDouble() - 0.5) * randomnessFactor);
 
                             }
-
-
+                            
                             //Check if new pos is better then the old one
                             if (func(candidatePosition) < func(population[i].position))
                                 population[i].position = candidatePosition;

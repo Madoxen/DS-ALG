@@ -4,24 +4,24 @@ namespace Algorithms.Tests
 {
     using Lib.Opti;
     [TestClass]
-    public class FireflyTests
+    public class BeesTests
     {
         [TestMethod]
         public void Test()
         {
-            Firefly fire = new Firefly();
+            Bees bee = new Bees();
             IOptiTestFunc f = new Weierstrass();
-            fire.dimension = 10;
-            fire.searchSpace = f.SearchSpace;
-            double[] res = fire.Opti(f.Func);
+            bee.dimension = 10;
+            bee.searchSpace = f.SearchSpace;
+            double[] res = bee.Opti(f.Func);
             double val = f.Func(res);
             Assert.AreEqual(f.MinimumValue, val, 5);
 
-            fire = new Firefly();
+            bee = new Bees();
             f = new SumSquares();
-            fire.dimension = 10;
-            fire.searchSpace = f.SearchSpace;
-            res = fire.Opti(f.Func);
+            bee.dimension = 10;
+            bee.searchSpace = f.SearchSpace;
+            res = bee.Opti(f.Func);
             val = f.Func(res);
             Assert.AreEqual(f.MinimumValue, val, 5);
         }
