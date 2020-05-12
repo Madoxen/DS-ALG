@@ -6,7 +6,6 @@ using Algorithms.Lib.Sorting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics;
 
-[Ignore]
 [TestClass]
 public class SortingTests
 {
@@ -63,9 +62,11 @@ public class SortingTests
 
         foreach (ISort s in sorts)
         {
+            Debug.WriteLine("Testing: " + s.GetType().ToString());
             TestSort(s);
         }
     }
+
 
     [TestMethod]
     public void TestCountingSort()
