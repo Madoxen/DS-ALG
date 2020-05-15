@@ -46,6 +46,12 @@ namespace Algorithms.Lib.Opti
 
                         if (r < crossoverProbability)
                             potential[k] = referenceAgents[0][k] + differentialWeight * (referenceAgents[1][k] - referenceAgents[2][k]);
+
+                        if(potential[k] < searchSpace[0])
+                            potential[k] = searchSpace[0];
+                        
+                        if(potential[k] > searchSpace[1])
+                            potential[k] = searchSpace[1];
                     }
                     if (func(potential) <= func(pop[j]))
                         pop[j] = potential;

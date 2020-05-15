@@ -47,8 +47,6 @@ namespace Algorithms.Lib.Opti
 
 
 
-
-
             for (int gen = 0; gen < generations; gen++)
             {
                 for (int i = 0; i < populationCount; i++)
@@ -70,6 +68,14 @@ namespace Algorithms.Lib.Opti
                                 candidatePosition[dim] += (population[j].position[dim] - population[i].position[dim])
                                  * dist;
                                 candidatePosition[dim] += ((rnd.NextDouble() - 0.5) * randomnessFactor);
+
+                                //Keep solution in bounds
+                                if(candidatePosition[dim] < searchSpace[0])
+                                    candidatePosition[dim] = searchSpace[0];
+
+                                if(candidatePosition[dim] > searchSpace[1])
+                                    candidatePosition[dim] = searchSpace[1];
+
 
                             }
                             
